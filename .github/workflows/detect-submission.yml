@@ -1,0 +1,56 @@
+name: "Step 1: Detect Submission"
+
+# Runs on the FORK's code — no secrets available.
+# Validates structure and uploads detection results for the grading workflow.
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - 'my-work/**'
+
+permissions:
+  contents: read
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout student submission
+        uses: actions/checkout@v4
+
+      - name: Checkout grading scripts from upstream
+        uses: actions/checkout@v4
+        with:
+          repository: KeenJess/relay-scenario
+          ref: main
+          path: _grading
+          sparse-checkout: |
+            .github/grading/
+            rubrics/
+            specs/templates/
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Detect completed exercises
+        run: python _grading/.github/grading/detect_exercises.py
+        env:
+          SUBMISSION_PATH: my-work
+
+      - name: Collect student work files
+        run: |
+          mkdir -p submission-bundle
+          if [ -d my-work ]; then
+            cp -r my-work submission-bundle/
+          fi
+          cp grading-results/detection.json submission-bundle/
+
+      - name: Upload submission bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: submission-bundle
+          path: submission-bundle/
+          retention-days: 7

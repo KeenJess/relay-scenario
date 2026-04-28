@@ -46,7 +46,7 @@ Roll out spec-driven development across Relay's 4 product teams.
 | 3.3 | [Team Adoption](level-3/3.3-team-adoption.md) | -- |
 | 3.4 | [Measuring Adoption](level-3/3.4-measuring-adoption.md) | -- |
 | 3.5 | [Sustaining the Practice](level-3/3.5-sustaining-practice.md) | -- |
-| 3.6 | [Capstone: The Transformation Plan](level-3/3.6-capstone.md) | [Level 3 Rubric](../rubrics/level-3-capstone-rubric.md) |
+| 3.6 | [Capstone: The Transformation Plan](level-3/3.6-capstone.md) | [transformation-plan-template.md](../specs/templates/transformation-plan-template.md), [Level 3 Rubric](../rubrics/level-3-capstone-rubric.md) |
 
 ---
 
